@@ -34,7 +34,15 @@ func min(a int, b int) int {
 func replace(old, new *Node) {
 	*old = *new
 }
+func replaceRef(oldNode **Node, newNode *Node) {
+	*oldNode = newNode
+}
 
+func copyBytes(dest []byte, src []byte, numBytes int) {
+	for i := 0; i < numBytes && i < len(src) && i < len(dest); i++ {
+		dest[i] = src[i]
+	}
+}
 func main() {
 
 }
