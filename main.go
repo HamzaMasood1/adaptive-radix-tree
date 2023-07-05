@@ -1,5 +1,7 @@
 package main
 
+import "bytes"
+
 type leafNode struct {
 	key   []byte
 	value interface{}
@@ -42,6 +44,21 @@ func copyBytes(dest []byte, src []byte, numBytes int) {
 	for i := 0; i < numBytes && i < len(src) && i < len(dest); i++ {
 		dest[i] = src[i]
 	}
+}
+func terminate(key []byte) []byte {
+	index := bytes.Index(key, []byte{0})
+	if index < 0 {
+		key = append(key, byte(0))
+	}
+	return key
+}
+
+func newLeafNode(key []byte, value interface{}) *Node {
+	newKey := make([]byte, len(key))
+	copy(newKey, key)
+
+	newLeaf := &leafNode{newKey, value}
+	return &Node{leaf: newLeaf}
 }
 func main() {
 
